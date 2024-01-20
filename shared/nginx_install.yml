@@ -1,7 +1,7 @@
 ---
 - name: Ansible - nginx install
   hosts: all
-exit  become: yes
+  become: yes
  
   tasks:
     - name: Telepítse az Nginx csomagot
