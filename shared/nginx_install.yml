@@ -1,11 +1,8 @@
 ---
-- name: Haladó Playbook Technikák
+- name: Ansible - nginx install
   hosts: all
-  become: yes
-  vars:
-    - default_index: "<h1>Welcome to DevOps training!</h1>"
-    - custom_message: "<h1>This is a Custom Message for {{ ansible_hostname }}!</h1>"
-  
+exit  become: yes
+ 
   tasks:
     - name: Telepítse az Nginx csomagot
       package:
@@ -14,18 +11,10 @@
       
     - name: Írja át az index.html fájlt
       template:
-        src: index.j2
+        src: nginx_index.html
         dest: /usr/share/nginx/html/index.html
       notify: Restart Nginx
-      
-    - name: Loop through list and create files
-      copy:
-        content: "{{ item.content }}"
-        dest: "/usr/share/nginx/html/{{ item.filename }}"
-      loop:
-        - { filename: 'file1.html', content: 'This is file 1' }
-        - { filename: 'file2.html', content: 'This is file 2' }
-      
+          
   handlers:
     - name: Restart Nginx
       service:
